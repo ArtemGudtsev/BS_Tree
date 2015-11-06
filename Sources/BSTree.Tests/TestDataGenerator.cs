@@ -13,16 +13,15 @@ namespace BSTree.Tests
         {
             int[] keys = new int[count];
             string[] values = new string[count];
-            var result = Tuple.Create(keys, values);
             Random rnd = new Random();
 
             for(int i = 0; i < count; i++)
             {
                 keys[i] = rnd.Next(0, int.MaxValue);
-                values[i] = Convert.ToString(i);
+                values[i] = Convert.ToString(keys[i]);
             }
 
-            return result;
+            return Tuple.Create(keys, values);
         }
     }
 }
