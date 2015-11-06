@@ -44,3 +44,9 @@ Temporary Items
 
 # Visual studio temp files
 .suo
+
+# Unnecessary folders at VS projects
+Sources/BSTree.Tests/bin/
+Sources/BSTree.Tests/obj/
+Sources/BSTree/bin/
+Sources/BSTree/obj/

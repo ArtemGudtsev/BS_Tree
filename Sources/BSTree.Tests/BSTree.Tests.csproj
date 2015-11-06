@@ -57,10 +57,7 @@
     <Compile Include="MultipleTreeOperationsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StandartOperationsTests.cs" />
-<<<<<<< HEAD
     <Compile Include="StaticMockFabric.cs" />
-=======
->>>>>>> tests-added
     <Compile Include="TestDataGenerator.cs" />
     <Compile Include="TraversingTests.cs" />
   </ItemGroup>
