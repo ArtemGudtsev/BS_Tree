@@ -8,26 +8,46 @@ namespace BSTree
 {
     public class StdNode : IBSNode<int, string>
     {
+        /// <summary>
+        /// Конструктор по умолчанию
+        /// </summary>
         public StdNode()
         {
-            //Random rnd = new Random();
-            //Key = rnd.Next(0, int.MaxValue);
+            
         }
 
+        /// <summary>
+        /// Конструктор для инициализации узла готовыми значениями
+        /// </summary>
         public StdNode(int key, string value)
         {
             Key = key;
             Value = value;
         }
 
+        /// <summary>
+        /// Ключ узла
+        /// </summary>
         public int Key { get; set; }
 
+        /// <summary>
+        /// Значение узла
+        /// </summary>
         public string Value { get; set; }
 
+        /// <summary>
+        /// Левый потомок узла
+        /// </summary>
         public StdNode Left { get; set; }
 
+        /// <summary>
+        /// Правый потомок узла
+        /// </summary>
         public StdNode Right { get; set; }
 
+        /// <summary>
+        /// Помещение данных в дерево под ключом
+        /// </summary>
         public void Insert(int key, string value)
         {
             if (!string.IsNullOrEmpty(value))
@@ -58,6 +78,9 @@ namespace BSTree
             }
         }
 
+        /// <summary>
+        /// Поиск в дереву по значению ключа
+        /// </summary>
         public string Find(int key)
         {
             string result = string.Empty;
@@ -72,6 +95,9 @@ namespace BSTree
             return result;
         }
 
+        /// <summary>
+        /// Удаление данных из дерева по ключу
+        /// </summary>
         public void Delete(int key)
         {
             if (key == Key)
@@ -127,6 +153,9 @@ namespace BSTree
             }
         }
 
+        /// <summary>
+        /// Left - Node - Right
+        /// </summary>
         public void InorderTraverse(Traverse<int, string> traverseFunc)
         {
             Left?.InorderTraverse(traverseFunc);
@@ -134,6 +163,9 @@ namespace BSTree
             Right?.InorderTraverse(traverseFunc);
         }
 
+        /// <summary>
+        /// Left - Right - Node
+        /// </summary>
         public void PostorderTraverse(Traverse<int, string> traverseFunc)
         {
             Left?.PostorderTraverse(traverseFunc);
@@ -141,21 +173,14 @@ namespace BSTree
             traverseFunc(Key, Value);
         }
 
+        /// <summary>
+        /// Node - Left - Right
+        /// </summary>
         public void PreorderTraverse(Traverse<int, string> traverseFunc)
         {
             traverseFunc(Key, Value);
             Left?.PreorderTraverse(traverseFunc);
             Right?.PreorderTraverse(traverseFunc);
-        }
-
-        public void MergeTrees(IBSNode<int, string> tree1, IBSNode<int, string> tree2)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Tuple<IBSNode<int, string>, IBSNode<int, string>> Split(int splittingKey)
-        {
-            throw new NotImplementedException();
         }
     }
 }

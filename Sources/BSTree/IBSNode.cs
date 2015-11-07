@@ -14,8 +14,5 @@ namespace BSTree
         void InorderTraverse(Traverse<Key, Value> traverseFunc);
         void PreorderTraverse(Traverse<Key, Value> traverseFunc);
         void PostorderTraverse(Traverse<Key, Value> traverseFunc);
-
-        Tuple<IBSNode<Key, Value>, IBSNode<Key, Value>> Split(Key splittingKey);
-        void MergeTrees(IBSNode<Key, Value> tree1, IBSNode<Key, Value> tree2);
     }
 }
