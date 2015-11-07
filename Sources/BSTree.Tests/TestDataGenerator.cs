@@ -14,11 +14,13 @@ namespace BSTree.Tests
             int[] keys = new int[count];
             string[] values = new string[count];
             Random rnd = new Random();
+            int max = int.MaxValue / 4 < count ? count * 4 : count;
 
             for(int i = 0; i < count; i++)
             {
-                keys[i] = rnd.Next(0, int.MaxValue);
-                values[i] = Convert.ToString(keys[i]);
+                int v = rnd.Next(1, max);
+                keys[i] = v;
+                values[i] = Convert.ToString(v);
             }
 
             return Tuple.Create(keys, values);

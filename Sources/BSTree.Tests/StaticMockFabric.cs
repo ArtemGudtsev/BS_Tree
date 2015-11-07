@@ -5,14 +5,14 @@ namespace BSTree.Tests
 {
     public class MockFabric
     {
-        public static Mock<IBSNode<int, string>> GetMockForBSTree()
+        public static Mock<IBSNode<Int32, string>> GetMockForBSTree()
         {
             return GetMockForBSTree(10);
         }
 
-        public static Mock<IBSNode<int, string>> GetMockForBSTree(int count)
+        public static Mock<IBSNode<Int32, string>> GetMockForBSTree(int count)
         {
-            var mock = new Mock<IBSNode<int, string>>();
+            var mock = new Mock<IBSNode<Int32, string>>();
             
             for (int i=0; i< count; i++)
             {
@@ -24,16 +24,16 @@ namespace BSTree.Tests
             return mock;
         }
 
-        public static Mock<IBSNode<int, string>> GetMockForBSTree(Tuple<int[], string[]> testData)
+        public static Mock<IBSNode<Int32, string>> GetMockForBSTree(Tuple<Int32[], string[]> testData)
         {
-            int[] keys = testData.Item1;
+            Int32[] keys = testData.Item1;
             string[] values = testData.Item2;
 
             if (keys.Length != values.Length)
                 throw new Exception("Keys and Values should have same sizes!");
 
             int count = keys.Length;
-            var mock = new Mock<IBSNode<int, string>>();
+            var mock = new Mock<IBSNode<Int32, string>>();
 
             for (int i = 0; i < count; i++)
             {

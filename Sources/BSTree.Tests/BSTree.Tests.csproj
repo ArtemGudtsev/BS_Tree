@@ -61,6 +61,7 @@
     <Compile Include="StandartOperationsTests.cs" />
     <Compile Include="StaticMockFabric.cs" />
     <Compile Include="TestDataGenerator.cs" />
+    <Compile Include="TestTests.cs" />
     <Compile Include="TraversingTests.cs" />
   </ItemGroup>
   <ItemGroup>
