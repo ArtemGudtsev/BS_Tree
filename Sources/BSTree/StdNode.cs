@@ -127,37 +127,28 @@ namespace BSTree
             }
         }
 
-        public void InorderTraverse(TraverseAndCollect<Int32, string> traverseFunc)
+        public void InorderTraverse(Traverse<int, string> traverseFunc)
         {
-            throw new NotImplementedException();
+            Left?.InorderTraverse(traverseFunc);
+            traverseFunc(Key, Value);
+            Right?.InorderTraverse(traverseFunc);
         }
 
-        public void InorderTraverse(Traverse<Int32, string> traverseFunc)
+        public void PostorderTraverse(Traverse<int, string> traverseFunc)
         {
-            throw new NotImplementedException();
+            Left?.PostorderTraverse(traverseFunc);
+            Right?.PostorderTraverse(traverseFunc);
+            traverseFunc(Key, Value);
         }
 
-        public void PostorderTraverse(TraverseAndCollect<Int32, string> traverseFunc)
+        public void PreorderTraverse(Traverse<int, string> traverseFunc)
         {
-            throw new NotImplementedException();
+            traverseFunc(Key, Value);
+            Left?.PreorderTraverse(traverseFunc);
+            Right?.PreorderTraverse(traverseFunc);
         }
 
-        public void PostorderTraverse(Traverse<Int32, string> traverseFunc)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void PreorderTraverse(TraverseAndCollect<Int32, string> traverseFunc)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void PreorderTraverse(Traverse<Int32, string> traverseFunc)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void MergeTrees(IBSNode<Int32, string> tree1, IBSNode<Int32, string> tree2)
+        public void MergeTrees(IBSNode<int, string> tree1, IBSNode<int, string> tree2)
         {
             throw new NotImplementedException();
         }
