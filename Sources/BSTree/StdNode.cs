@@ -99,19 +99,9 @@
                 if (Left == null && Right == null)
                     Key = 0;
                 else if (Left == null)
-                {
-                    Key = Right.Key;
-                    Value = Right.Value;
-                    Left = Right.Left;
-                    Right = Right.Right;
-                }
+                    Copy(Right, this);
                 else if (Right == null)
-                {
-                    Key = Left.Key;
-                    Value = Left.Value;
-                    Right = Left.Right;
-                    Left = Left.Left;
-                }
+                    Copy(Left, this);
                 else
                 {
                     if (Right.Left == null)
@@ -122,14 +112,21 @@
                     }
                     else
                     {
-                        StdNode node = Right.Left;
+                        StdNode parent = Right;
+                        StdNode node = parent.Left;
 
                         while (node.Left != null)
-                            node = node.Left;
+                        {
+                            parent = node;
+                            node = parent.Left;
+                        }
 
                         Key = node.Key;
                         Value = node.Value;
-                        node.Delete(node.Key);
+                        if (node.Right == null)
+                            parent.Left = null;
+                        else
+                            parent.Left = node.Right;
                     }
                 }
             }
@@ -145,6 +142,14 @@
                 if (Right.Key == 0)
                     Right = null;
             }
+        }
+
+        protected void Copy(StdNode src, StdNode dst)
+        {
+            dst.Key = src.Key;
+            dst.Value = src.Value;
+            dst.Left = src.Left;
+            dst.Right = src.Right;
         }
 
         /// <summary>
