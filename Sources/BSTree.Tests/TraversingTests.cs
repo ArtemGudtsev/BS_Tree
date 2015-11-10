@@ -16,9 +16,9 @@ namespace BSTree.Tests
             treeHead.InorderTraverse((key, value) => sortedKeys.Add(key));
         }
 
-        protected StdNode GetTree(int count)
+        protected StdNode<int, string> GetTree(int count)
         {
-            var treeHead = new StdNode();
+            var treeHead = new StdNode<int, string>();
             var testData = TestDataGenerator.GetKeysAndValues(count);
 
             FillTreeByTestData(treeHead, testData);
@@ -26,7 +26,7 @@ namespace BSTree.Tests
             return treeHead;
         }
 
-        protected void FillTreeByTestData(StdNode head, Tuple<int[], string[]> data)
+        protected void FillTreeByTestData(StdNode<int, string> head, Tuple<int[], string[]> data)
         {
             var keys = data.Item1;
             var values = data.Item2;

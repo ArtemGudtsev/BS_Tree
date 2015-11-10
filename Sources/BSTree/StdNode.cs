@@ -1,6 +1,8 @@
-﻿namespace BSTree
+﻿using System;
+
+namespace BSTree
 {
-    public class StdNode : IBSNode<int, string>
+    public class StdNode<Key, Value> : IBSNode<Key, Value> where Key : IComparable
     {
         /// <summary>
         /// Конструктор по умолчанию
@@ -13,77 +15,74 @@
         /// <summary>
         /// Конструктор для инициализации узла готовыми значениями
         /// </summary>
-        public StdNode(int key, string value)
+        public StdNode(Key key, Value value)
         {
-            Key = key;
-            Value = value;
+            this.NodeKey = key;
+            this.NodeValue = value;
         }
 
         /// <summary>
         /// Ключ узла
         /// </summary>
-        public int Key { get; set; }
+        public Key NodeKey { get; set; }
 
         /// <summary>
         /// Значение узла
         /// </summary>
-        public string Value { get; set; }
+        public Value NodeValue { get; set; }
 
         /// <summary>
         /// Левый потомок узла
         /// </summary>
-        public StdNode Left { get; set; }
+        public StdNode<Key, Value> Left { get; set; }
 
         /// <summary>
         /// Правый потомок узла
         /// </summary>
-        public StdNode Right { get; set; }
+        public StdNode<Key, Value> Right { get; set; }
 
         /// <summary>
         /// Помещение данных в дерево под ключом
         /// </summary>
-        public void Insert(int key, string value)
+        public void Insert(Key key, Value value)
         {
-            if (!string.IsNullOrEmpty(value))
+            if (NodeKey.CompareTo(default(Key)) == 0)
             {
-                if (Key == 0)
-                {
-                    Key = key;
-                    Value = value;
-                }
-                if (Key == key)
-                {
-                    Value = value;
-                }
-                else if (key < Key)
-                {
-                    if (Left == null)
-                        Left = new StdNode(key, value);
-                    else
-                        Left.Insert(key, value);
-                }
-                else if (key > Key)
-                {
-                    if (Right == null)
-                        Right = new StdNode(key, value);
-                    else
-                        Right.Insert(key, value);
-                }
+                NodeKey = key;
+                NodeValue = value;
+            }
+            else if (NodeKey.CompareTo(key) == 0)
+            {
+                NodeValue = value;
+            }
+            else if (NodeKey.CompareTo(key) > 0)
+            {
+                if (Left == null)
+                    Left = new StdNode<Key, Value>(key, value);
+                else
+                    Left.Insert(key, value);
+            }
+            else if (NodeKey.CompareTo(key) < 0)
+            {
+                if (Right == null)
+                    Right = new StdNode<Key, Value>(key, value);
+                else
+                    Right.Insert(key, value);
             }
         }
 
         /// <summary>
         /// Поиск в дереву по значению ключа
         /// </summary>
-        public string Find(int key)
+        public Value Find(Key key)
         {
-            string result = string.Empty;
+            Value result = default(Value);
 
-            if (Key == key)
-                result = Value;
-            else if (key < Key && Left != null)
+            if (NodeKey.CompareTo(key) == 0)
+                result = NodeValue;
+            else if (NodeKey.CompareTo(key) > 0 && Left != null)
                 result = Left.Find(key);
-            else if (key > Key && Right != null)
+            else if (NodeKey.CompareTo(key) < 0 && Right != null)
                 result = Right.Find(key);
 
             return result;
@@ -92,12 +91,12 @@
         /// <summary>
         /// Удаление данных из дерева по ключу
         /// </summary>
-        public void Delete(int key)
+        public void Delete(Key key)
         {
-            if (key == Key)
+            if (NodeKey.CompareTo(key) == 0)
             {
                 if (Left == null && Right == null)
-                    Key = 0;
+                    NodeKey = default(Key);
                 else if (Left == null)
                     Copy(Right, this);
                 else if (Right == null)
@@ -106,14 +105,14 @@
                 {
                     if (Right.Left == null)
                     {
-                        Key = Right.Key;
-                        Value = Right.Value;
+                        NodeKey = Right.NodeKey;
+                        NodeValue = Right.NodeValue;
                         Right = Right.Right;
                     }
                     else
                     {
-                        StdNode parent = Right;
-                        StdNode node = parent.Left;
+                        var parent = Right;
+                        var node = parent.Left;
 
                         while (node.Left != null)
                         {
@@ -121,8 +120,8 @@
                             node = parent.Left;
                         }
 
-                        Key = node.Key;
-                        Value = node.Value;
+                        NodeKey = node.NodeKey;
+                        NodeValue = node.NodeValue;
                         if (node.Right == null)
                             parent.Left = null;
                         else
@@ -130,24 +129,24 @@
                     }
                 }
             }
-            else if (key < Key && Left != null)
+            else if (NodeKey.CompareTo(key) > 0 && Left != null)
             { 
                 Left.Delete(key);
-                if (Left.Key == 0)
+                if (Left.NodeKey.CompareTo(default(Key)) == 0)
                     Left = null;
             }
-            else if (key > Key && Right != null)
+            else if (NodeKey.CompareTo(key) < 0 && Right != null)
             { 
                 Right.Delete(key);
-                if (Right.Key == 0)
+                if (Right.NodeKey.CompareTo(default(Key)) == 0)
                     Right = null;
             }
         }
 
-        protected void Copy(StdNode src, StdNode dst)
+        protected void Copy(StdNode<Key, Value> src, StdNode<Key, Value> dst)
         {
-            dst.Key = src.Key;
-            dst.Value = src.Value;
+            dst.NodeKey = src.NodeKey;
+            dst.NodeValue = src.NodeValue;
             dst.Left = src.Left;
             dst.Right = src.Right;
         }
@@ -155,29 +154,29 @@
         /// <summary>
         /// Left - Node - Right
         /// </summary>
-        public void InorderTraverse(Traverse<int, string> traverseFunc)
+        public void InorderTraverse(Traverse<Key, Value> traverseFunc)
         {
             Left?.InorderTraverse(traverseFunc);
-            traverseFunc(Key, Value);
+            traverseFunc(NodeKey, NodeValue);
             Right?.InorderTraverse(traverseFunc);
         }
 
         /// <summary>
         /// Left - Right - Node
         /// </summary>
-        public void PostorderTraverse(Traverse<int, string> traverseFunc)
+        public void PostorderTraverse(Traverse<Key, Value> traverseFunc)
         {
             Left?.PostorderTraverse(traverseFunc);
             Right?.PostorderTraverse(traverseFunc);
-            traverseFunc(Key, Value);
+            traverseFunc(NodeKey, NodeValue);
         }
 
         /// <summary>
         /// Node - Left - Right
         /// </summary>
-        public void PreorderTraverse(Traverse<int, string> traverseFunc)
+        public void PreorderTraverse(Traverse<Key, Value> traverseFunc)
         {
-            traverseFunc(Key, Value);
+            traverseFunc(NodeKey, NodeValue);
             Left?.PreorderTraverse(traverseFunc);
             Right?.PreorderTraverse(traverseFunc);
         }

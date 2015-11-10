@@ -13,7 +13,7 @@ namespace BSTree.Tests
         public void TestCreateTree()
         {
             //var treeHead = MockFabric.GetMockForBSTree(TestDataGenerator.GetKeysAndValues(treeCount)).Object;
-            var treeHead = new StdNode();
+            var treeHead = new StdNode<int, string>();
 
             for (int i = 0; i < treeCount; i++)
                 treeHead.Insert(i, Convert.ToString(i));
@@ -24,7 +24,7 @@ namespace BSTree.Tests
         {
             var testData = TestDataGenerator.GetKeysAndValues(treeCount);
             //var treeHead = MockFabric.GetMockForBSTree(testData).Object;
-            var treeHead = new StdNode();
+            var treeHead = new StdNode<int, string>();
 
             for (int i = 0; i < treeCount; i++)
                 treeHead.Insert(testData.Item1[i], testData.Item2[i]);
@@ -36,7 +36,7 @@ namespace BSTree.Tests
         [TestMethod]
         public void TestDelete1()//удаление листа
         {
-            var treeHead = new StdNode();
+            var treeHead = new StdNode<int, string>();
             var keys = new List<int>(new int[] { 10, 5, 15 });
             var keyToDelete = keys[2];
 
@@ -46,7 +46,7 @@ namespace BSTree.Tests
             treeHead.Delete(keyToDelete);
             keys.Remove(keyToDelete);
 
-            Assert.AreEqual(string.Empty, treeHead.Find(keyToDelete));
+            Assert.AreEqual(null, treeHead.Find(keyToDelete));
 
             foreach (int key in keys)
                 Assert.AreEqual(Convert.ToString(key), treeHead.Find(key));
@@ -55,7 +55,7 @@ namespace BSTree.Tests
         [TestMethod]
         public void TestDelete2()//удаление узла с одним из потомков
         {
-            var treeHead = new StdNode();
+            var treeHead = new StdNode<int, string>();
             var keys = new List<int>(new int[] { 10, 5, 15, 12 });
             var keyToDelete = keys[2];
 
@@ -65,7 +65,7 @@ namespace BSTree.Tests
             treeHead.Delete(keyToDelete);
             keys.Remove(keyToDelete);
 
-            Assert.AreEqual(string.Empty, treeHead.Find(keyToDelete));
+            Assert.AreEqual(null, treeHead.Find(keyToDelete));
 
             foreach (int key in keys)
                 Assert.AreEqual(Convert.ToString(key), treeHead.Find(key));
@@ -74,7 +74,7 @@ namespace BSTree.Tests
         [TestMethod]
         public void TestDelete3()//удаление узла с обоими потомками, но у правого потомка нет левой ветви
         {
-            var treeHead = new StdNode();
+            var treeHead = new StdNode<int, string>();
             var keys = new List<int>(new int[] { 10, 5, 15, 12, 17, 18 });
             var keyToDelete = keys[2];
 
@@ -84,7 +84,7 @@ namespace BSTree.Tests
             treeHead.Delete(keyToDelete);
             keys.Remove(keyToDelete);
 
-            Assert.AreEqual(string.Empty, treeHead.Find(keyToDelete));
+            Assert.AreEqual(null, treeHead.Find(keyToDelete));
 
             foreach (int key in keys)
                 Assert.AreEqual(Convert.ToString(key), treeHead.Find(key));
@@ -93,7 +93,7 @@ namespace BSTree.Tests
         [TestMethod]
         public void TestDelete4()//удаление узла с обоими потомками, у правого потомка есть левая ветвь
         {
-            var treeHead = new StdNode();
+            var treeHead = new StdNode<int, string>();
             var keys = new List<int>(new int[] { 10, 5, 17, 14, 19, 18, 20, 13, 15 });
             var keyToDelete = keys[2];
 
@@ -103,7 +103,7 @@ namespace BSTree.Tests
             treeHead.Delete(keyToDelete);
             keys.Remove(keyToDelete);
 
-            Assert.AreEqual(string.Empty, treeHead.Find(keyToDelete));
+            Assert.AreEqual(null, treeHead.Find(keyToDelete));
 
             foreach (int key in keys)
                 Assert.AreEqual(Convert.ToString(key), treeHead.Find(key));
@@ -113,7 +113,7 @@ namespace BSTree.Tests
         public void TestDeleteComplex()
         {
             var testData = TestDataGenerator.GetKeysAndValues(treeCount);
-            var treeHead = new StdNode();
+            var treeHead = new StdNode<int, string>();
 
             List<int> existingKeys = new List<int>(testData.Item1);
             List<int> deletedKeys = new List<int>();
@@ -136,7 +136,7 @@ namespace BSTree.Tests
 
                 int deletedKeyToFind = deletedKeys[rnd.Next(0, deletedKeys.Count - 1)];
 
-                Assert.AreEqual(string.Empty, treeHead.Find(deletedKeyToFind));
+                Assert.AreEqual(null, treeHead.Find(deletedKeyToFind));
             }
         }
     }
